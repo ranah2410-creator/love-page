@@ -2,16 +2,45 @@
 <html>
 <head>
   <title>For You ❤️</title>
+
+  <style>
+    body {
+      text-align: center;
+      background: pink;
+      font-family: Arial;
+      overflow: hidden;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* ❤️ Hearts Style */
+    .heart {
+      position: fixed;
+      top: -10px;
+      color: red;
+      font-size: 20px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
+  </style>
 </head>
 
-<body style="text-align:center; background:pink; font-family:Arial;">
+<body>
 
-  <h1>agar buggu pe gussa aarha hai toh click karo❤️</h1>
+  <h1>agar buggu se gussa ho toh click karo❤️</h1>
 
-  <button onclick="showLove()" 
-    style="padding:10px 20px; font-size:18px; border-radius:10px; border:none; cursor:pointer;">
-    Click Here 💖
-  </button>
+  <button onclick="showLove()">Click Here 💖</button>
 
   <div id="msg" style="display:none; font-size:20px; margin-top:20px;">
     
@@ -20,6 +49,7 @@
 
     <img src="photo.jpg" width="250" style="border-radius:15px;"><br><br>
 
+    Distance doesn’t matter… you do ❤️
   </div>
 
   <!-- Music -->
@@ -30,8 +60,27 @@
   <script>
     function showLove() {
       document.getElementById("msg").style.display = "block";
+      document.querySelector("button").style.display = "none";
       document.getElementById("music").play();
     }
+
+    // ❤️ Falling hearts function
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤️";
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    setInterval(createHeart, 300);
   </script>
 
 </body>
