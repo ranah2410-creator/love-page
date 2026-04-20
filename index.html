@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meri Arpu ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0a0006; min-height:100vh; font-family:'Lato',sans-serif; overflow-x:hidden; color:#fff; scroll-behavior:smooth; }
+.stars { position:fixed; inset:0; pointer-events:none; z-index:0; }
+.star { position:absolute; background:#fff; border-radius:50%; animation:twinkle var(--dur) ease-in-out infinite alternate; }
+@keyframes twinkle { from{opacity:0.1;transform:scale(1);} to{opacity:0.9;transform:scale(1.4);} }
+.music-btn { position:fixed; top:20px; right:20px; z-index:200; background:rgba(255,255,255,0.07); border:1px solid rgba(244,167,185,0.3); color:#f4a7b9; width:44px; height:44px; border-radius:50%; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; backdrop-filter:blur(8px); }
+.music-btn:hover { background:rgba(244,167,185,0.15); transform:scale(1.1); }
+.music-btn.playing { animation:spinSlow 4s linear infinite; }
+@keyframes spinSlow { to{transform:rotate(360deg);} }
+.sticker { position:fixed; pointer-events:none; z-index:3; animation:stickerFloat var(--sf-dur) ease-in-out infinite alternate; opacity:0.85; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.3)); user-select:none; }
+@keyframes stickerFloat { from{transform:translateY(0) rotate(var(--rot-from));} to{transform:translateY(-12px) rotate(var(--rot-to));} }
+.burst-hearts { position:fixed; inset:0; pointer-events:none; z-index:99; }
+.burst-h { position:absolute; font-size:24px; animation:burst 1.5s ease-out forwards; opacity:0; }
+@keyframes burst { 0%{opacity:1;transform:translate(0,0) scale(0.5);} 100%{opacity:0;transform:translate(var(--bx),var(--by)) scale(1.5);} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px);} to{opacity:1;transform:translateY(0);} }
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+@keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.25);} }
+@keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(6px);} }
+
+/* HERO */
+.hero { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; padding:60px 24px 80px; min-height:100vh; }
+.badge { font-size:11px; letter-spacing:4px; text-transform:uppercase; color:#f4a7b9; margin-bottom:20px; opacity:0; animation:fadeUp 1s 0.3s forwards; }
+.title { font-family:'Playfair Display',serif; font-size:clamp(38px,8vw,72px); font-weight:700; text-align:center; background:linear-gradient(135deg,#f9c1cc 0%,#fff 50%,#f9c1cc 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1.15; margin-bottom:12px; opacity:0; animation:fadeUp 1s 0.6s forwards; }
+.subtitle-italic { font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(15px,3vw,20px); color:#e8a0b4; text-align:center; margin-bottom:50px; opacity:0; animation:fadeUp 1s 0.9s forwards; }
+.photo-wrap { position:relative; width:clamp(200px,55vw,300px); margin-bottom:50px; opacity:0; animation:fadeUp 1.2s 1.2s forwards; }
+.photo-wrap::before { content:''; position:absolute; inset:-3px; border-radius:50%; background:linear-gradient(135deg,#f4a7b9,#fff,#f4a7b9,#c96c8a); z-index:0; animation:rotateBorder 6s linear infinite; }
+@keyframes rotateBorder { from{filter:hue-rotate(0deg);} to{filter:hue-rotate(30deg);} }
+.photo-inner { position:relative; z-index:1; border-radius:50%; overflow:hidden; aspect-ratio:1; border:6px solid #0a0006; }
+.photo-inner img { width:100%; height:100%; object-fit:cover; display:block; }
+.hearts-float { position:absolute; inset:0; pointer-events:none; z-index:2; }
+.fh { position:absolute; animation:floatHeart var(--fh-dur) ease-in infinite; opacity:0; }
+@keyframes floatHeart { 0%{opacity:0;transform:translateY(0) scale(0.8);} 20%{opacity:1;} 80%{opacity:0.7;} 100%{opacity:0;transform:translateY(-120px) scale(1.2);} }
+.msg-card { background:rgba(255,255,255,0.04); border:1px solid rgba(244,167,185,0.25); border-radius:24px; padding:36px 32px; max-width:480px; width:100%; text-align:center; backdrop-filter:blur(8px); margin-bottom:40px; opacity:0; animation:fadeUp 1s 1.8s forwards; }
+.msg-line { font-size:16px; line-height:1.9; color:rgba(255,255,255,0.88); font-weight:300; }
+.msg-line .highlight { color:#f9c1cc; font-weight:400; }
+.divider-heart { color:#c96c8a; font-size:20px; margin:18px 0; display:block; animation:pulse 1.4s ease-in-out infinite; }
+.cta-btn { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,#c96c8a,#e8849e); color:#fff; border:none; border-radius:50px; padding:16px 42px; font-size:15px; font-family:'Lato',sans-serif; font-weight:400; letter-spacing:1.5px; cursor:pointer; transition:transform 0.2s,box-shadow 0.2s; box-shadow:0 8px 32px rgba(201,108,138,0.35); opacity:0; animation:fadeUp 1s 2.2s forwards; }
+.cta-btn:hover { transform:translateY(-3px) scale(1.03); box-shadow:0 14px 40px rgba(201,108,138,0.5); }
+.cta-btn:active { transform:scale(0.97); }
+.scroll-hint { margin-top:40px; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.25); cursor:pointer; opacity:0; animation:fadeUp 1s 2.8s forwards; }
+
+/* SECTIONS */
+.section { position:relative; z-index:1; width:100%; max-width:600px; margin:0 auto; padding:80px 24px; }
+.section-label { font-size:10px; letter-spacing:5px; text-transform:uppercase; color:#c96c8a; text-align:center; margin-bottom:12px; }
+.section-title { font-family:'Playfair Display',serif; font-size:clamp(26px,5vw,42px); text-align:center; margin-bottom:40px; background:linear-gradient(135deg,#f9c1cc,#fff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.wave-divider { width:100%; text-align:center; color:rgba(201,108,138,0.3); font-size:24px; letter-spacing:8px; padding:10px 0; position:relative; z-index:1; }
+
+/* COUNTDOWN */
+.countdown-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+.cd-box { background:rgba(255,255,255,0.05); border:1px solid rgba(244,167,185,0.2); border-radius:16px; padding:20px 10px; text-align:center; backdrop-filter:blur(8px); }
+.cd-num { font-family:'Playfair Display',serif; font-size:clamp(28px,6vw,48px); font-weight:700; background:linear-gradient(135deg,#f9c1cc,#fff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1; }
+.cd-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-top:6px; }
+.cd-caption { text-align:center; font-size:14px; color:rgba(255,255,255,0.5); font-style:italic; }
+
+/* REASONS */
+.reasons-grid { display:flex; flex-direction:column; gap:16px; }
+.reason-card { background:rgba(255,255,255,0.04); border:1px solid rgba(244,167,185,0.15); border-radius:20px; padding:22px 24px; display:flex; align-items:flex-start; gap:16px; backdrop-filter:blur(6px); transition:transform 0.2s,border-color 0.2s; }
+.reason-card:hover { transform:translateX(6px); border-color:rgba(244,167,185,0.4); }
+.reason-num { font-family:'Playfair Display',serif; font-size:32px; font-weight:700; color:rgba(201,108,138,0.4); line-height:1; flex-shrink:0; min-width:42px; }
+.reason-text { font-size:15px; line-height:1.8; color:rgba(255,255,255,0.82); font-weight:300; padding-top:4px; }
+.reason-text strong { color:#f9c1cc; font-weight:400; }
+
+/* GALLERY */
+.gallery-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:12px; }
+.gallery-item { aspect-ratio:1; border-radius:16px; overflow:hidden; border:1px solid rgba(244,167,185,0.2); background:rgba(255,255,255,0.04); display:flex; align-items:center; justify-content:center; font-size:32px; cursor:pointer; transition:transform 0.2s,border-color 0.2s; position:relative; }
+.gallery-item:hover { transform:scale(1.04); border-color:rgba(244,167,185,0.5); }
+.gallery-item img { width:100%; height:100%; object-fit:cover; display:block; }
+.gallery-caption { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent,rgba(10,0,6,0.85)); font-size:11px; color:rgba(255,255,255,0.7); padding:20px 10px 10px; text-align:center; opacity:0; transition:opacity 0.2s; }
+.gallery-item:hover .gallery-caption { opacity:1; }
+
+/* LETTER */
+.letter-wrap { background:rgba(255,255,255,0.04); border:1px solid rgba(244,167,185,0.2); border-radius:28px; padding:48px 36px; backdrop-filter:blur(10px); position:relative; overflow:hidden; }
+.letter-wrap::before { content:'❝'; position:absolute; top:20px; left:28px; font-size:80px; color:rgba(201,108,138,0.12); line-height:1; font-family:'Playfair Display',serif; }
+.letter-text { font-family:'Playfair Display',serif; font-size:clamp(15px,2.5vw,18px); line-height:2.1; color:rgba(255,255,255,0.85); font-style:italic; position:relative; z-index:1; }
+.letter-text .pink { color:#f9c1cc; }
+.letter-sign { margin-top:32px; text-align:right; font-family:'Playfair Display',serif; font-size:20px; color:#e8a0b4; font-style:italic; }
+
+/* OVERLAY */
+.surprise-overlay { display:none; position:fixed; inset:0; background:rgba(10,0,6,0.92); z-index:300; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:40px; backdrop-filter:blur(10px); }
+.surprise-overlay.active { display:flex; animation:fadeIn 0.5s ease; }
+.surprise-title { font-family:'Playfair Display',serif; font-size:clamp(28px,6vw,52px); background:linear-gradient(135deg,#f9c1cc,#fff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:24px; }
+.surprise-msg { font-size:17px; line-height:2; color:rgba(255,255,255,0.8); font-weight:300; max-width:400px; margin-bottom:36px; }
+.close-btn { background:transparent; border:1px solid rgba(244,167,185,0.4); color:#f4a7b9; padding:12px 32px; border-radius:50px; font-family:'Lato',sans-serif; font-size:13px; letter-spacing:2px; cursor:pointer; transition:all 0.2s; }
+.close-btn:hover { background:rgba(244,167,185,0.1); }
+.footer-text { position:relative; z-index:1; text-align:center; padding:60px 24px 40px; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.2); }
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" loop><source src="song.mp3" type="audio/mpeg"></audio>
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Music">🎵</button>
+<div class="stars" id="stars"></div>
+<div class="burst-hearts" id="burst"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">Only for you ✦</div>
+  <div class="title">Meri Arpu ❤️</div>
+  <div class="subtitle-italic">tu meri duniya hai, sach mein</div>
+  <div class="photo-wrap">
+    <div class="hearts-float" id="floatH"></div>
+    <div class="photo-inner">
+      <img src="photo.jpg" alt="Arpu" onerror="this.style.background='linear-gradient(135deg,#c96c8a,#f9c1cc)';this.removeAttribute('alt')">
+    </div>
+  </div>
+  <div class="msg-card">
+    <p class="msg-line">Tu meri <span class="highlight">good morning</span> bhi hai</p>
+    <p class="msg-line">aur meri <span class="highlight">good night</span> bhi 💖</p>
+    <span class="divider-heart">♥</span>
+    <p class="msg-line" style="font-style:italic;color:rgba(255,255,255,0.6);font-size:14px;">Distance doesn't matter… you do ❤️</p>
+  </div>
+  <button class="cta-btn" onclick="showSurprise()">✦ Buggu se gussa ho? Click karo ✦</button>
+  <div class="scroll-hint" onclick="document.getElementById('countdown').scrollIntoView({behavior:'smooth'})">↓ &nbsp; aur bhi hai neeche &nbsp; ↓</div>
+</div>
+
+<div class="wave-divider">· · ♥ · · ♥ · · ♥ · ·</div>
+
+<!-- COUNTDOWN -->
+<div class="section" id="countdown">
+  <div class="section-label">Har pal ginta hoon</div>
+  <div class="section-title">Saath hain hum…</div>
+  <div class="countdown-grid">
+    <div class="cd-box"><div class="cd-num" id="cd-d">0</div><div class="cd-label">Din</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-h">0</div><div class="cd-label">Ghante</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-m">0</div><div class="cd-label">Minute</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-s">0</div><div class="cd-label">Second</div></div>
+  </div>
+  <p class="cd-caption">…pehli baar milne ke baad se 💕</p>
+</div>
+
+<div class="wave-divider">· · ♥ · · ♥ · · ♥ · ·</div>
+
+<!-- REASONS -->
+<div class="section" id="reasons">
+  <div class="section-label">Dil ki baat</div>
+  <div class="section-title">Kyun pyaar karta hoon tujhse?</div>
+  <div class="reasons-grid">
+    <div class="reason-card"><div class="reason-num">01</div><div class="reason-text">Teri <strong>hassi</strong> — woh sunke lagta hai sab theek ho jayega duniya mein.</div></div>
+    <div class="reason-card"><div class="reason-num">02</div><div class="reason-text">Tu <strong>gussa</strong> bhi hoti hai toh bhi mujhe sirf teri parwah hoti hai.</div></div>
+    <div class="reason-card"><div class="reason-num">03</div><div class="reason-text">Tera <strong>care karna</strong> — chhoti chhoti baaton mein bhi feel hota hai kitna pyaar hai tere dil mein.</div></div>
+    <div class="reason-card"><div class="reason-num">04</div><div class="reason-text">Tere saath <strong>khamoshi</strong> bhi comfortable lagti hai — aur yeh bahut rare hai.</div></div>
+    <div class="reason-card"><div class="reason-num">05</div><div class="reason-text">Tu meri <strong>good morning</strong> hai, meri <strong>good night</strong> hai, aur sab kuch beech mein bhi.</div></div>
+    <div class="reason-card"><div class="reason-num">06</div><div class="reason-text">Bas <strong>tu hai</strong> — aur yahi kaafi hai. Koi aur reason nahi chahiye.</div></div>
+  </div>
+</div>
+
+<div class="wave-divider">· · ♥ · · ♥ · · ♥ · ·</div>
+
+<!-- GALLERY -->
+<div class="section" id="gallery">
+  <div class="section-label">Hamare pal</div>
+  <div class="section-title">Memories 📸</div>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <img src="photo.jpg" alt="Memory 1" onerror="this.parentElement.innerHTML='🌸<div class=gallery-caption>Pehli mulaqat</div>'">
+      <div class="gallery-caption">Pehli mulaqat</div>
+    </div>
+    <div class="gallery-item">
+      <img src="photo2.jpg" alt="Memory 2" onerror="this.parentElement.innerHTML='💕<div class=gallery-caption>Saath waqt</div>'">
+      <div class="gallery-caption">Saath waqt</div>
+    </div>
+    <div class="gallery-item">
+      <img src="photo3.jpg" alt="Memory 3" onerror="this.parentElement.innerHTML='🌷<div class=gallery-caption>Teri muskaan</div>'">
+      <div class="gallery-caption">Teri muskaan</div>
+    </div>
+    <div class="gallery-item">
+      <img src="photo4.jpg" alt="Memory 4" onerror="this.parentElement.innerHTML='🧸<div class=gallery-caption>Hamesha yaad</div>'">
+      <div class="gallery-caption">Hamesha yaad</div>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:16px;font-size:12px;color:rgba(255,255,255,0.3);">photo2.jpg, photo3.jpg, photo4.jpg — repo mein upload karo</p>
+</div>
+
+<div class="wave-divider">· · ♥ · · ♥ · · ♥ · ·</div>
+
+<!-- LOVE LETTER -->
+<div class="section" id="letter">
+  <div class="section-label">Sirf tere liye</div>
+  <div class="section-title">Ek Khat 💌</div>
+  <div class="letter-wrap">
+    <p class="letter-text">
+      Meri jaan,<br><br>
+      Pata nahi kaise kahun — lekin <span class="pink">teri aadat ho gayi hai mujhe.</span>
+      Subah uthke tera socha hua message dekhna, raat ko tujhse baatein karna,
+      teri awaaz sunna — yeh sab ab meri <span class="pink">zarorat ban gaye hain.</span><br><br>
+      Tujhse door rehke bhi tera ehsaas hota hai.
+      Lagta hai tu kahin paas hi hai — mere dil ke andar kahin.
+      <span class="pink">Distance hai, par tu mere saath hai hamesha.</span><br><br>
+      Main chahta hoon ki tu jane — tujhse zyada koi nahi.
+      Aaj, kal, aur hamesha.<br><br>
+      <span class="pink">Tujhse pyaar hai, Arpu. Bahut zyada.</span>
+    </p>
+    <div class="letter-sign">— Tera Buggu ❤️</div>
+  </div>
+</div>
+
+<div class="wave-divider">· · ♥ · · ♥ · · ♥ · ·</div>
+<div class="footer-text">made with ❤️ for arpu &nbsp;·&nbsp; sirf tere liye</div>
+
+<!-- SURPRISE OVERLAY -->
+<div class="surprise-overlay" id="overlay">
+  <div class="surprise-title">Arpu, sun! 🥺</div>
+  <p class="surprise-msg">
+    Koi bhi cheez hume alag nahi kar sakti.<br>
+    Tujhse gussa reh ke bhi tera hi chehra aata hai.<br><br>
+    <span style="color:#f9c1cc">Maafi maango ya nahi —<br>main hamesha tera hoon. ❤️</span>
+  </p>
+  <button class="close-btn" onclick="closeOverlay()">vapis ❤️</button>
+</div>
+
+<script>
+  // Music
+  const music = document.getElementById('bgMusic');
+  const musicBtn = document.getElementById('musicBtn');
+  music.volume = 0.5;
+  let playing = false;
+  function toggleMusic() {
+    if (playing) { music.pause(); musicBtn.textContent='🎵'; musicBtn.classList.remove('playing'); playing=false; }
+    else { music.play(); musicBtn.textContent='🎶'; musicBtn.classList.add('playing'); playing=true; }
+  }
+  document.addEventListener('click', function startOnce() {
+    if (!playing) { music.play().then(()=>{ musicBtn.textContent='🎶'; musicBtn.classList.add('playing'); playing=true; }).catch(()=>{}); }
+    document.removeEventListener('click', startOnce);
+  }, {once:true});
+
+  // Stars
+  const starsEl = document.getElementById('stars');
+  for (let i=0;i<140;i++) {
+    const s=document.createElement('div'); s.className='star';
+    const sz=Math.random()*2.5+0.5;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${1.5+Math.random()*3}s;animation-delay:${Math.random()*3}s`;
+    starsEl.appendChild(s);
+  }
+
+  // Floating hearts
+  const floatEl=document.getElementById('floatH');
+  const emojiArr=['♥','❤','💕','💖','💗'];
+  setInterval(()=>{
+    const h=document.createElement('div'); h.className='fh';
+    h.textContent=emojiArr[Math.floor(Math.random()*emojiArr.length)];
+    h.style.cssText=`left:${10+Math.random()*80}%;bottom:0;--fh-dur:${2+Math.random()*2}s;animation-delay:0s;font-size:${12+Math.random()*14}px;color:hsl(${340+Math.random()*20},${70+Math.random()*20}%,${70+Math.random()*20}%)`;
+    floatEl.appendChild(h); setTimeout(()=>h.remove(),4000);
+  },600);
+
+  // Stickers
+  const stickerEmojis=['🧸','💌','🌸','🫶','💖','🌷','🍓','🎀','✨','💝','🌼','🩷','🫧','🍬','🌙','💫','🦋','🍒'];
+  const positions=[
+    {top:'5%',left:'3%'},{top:'5%',right:'3%'},
+    {top:'15%',left:'2%'},{top:'15%',right:'2%'},
+    {top:'28%',left:'1%'},{top:'28%',right:'1%'},
+    {top:'42%',left:'2%'},{top:'42%',right:'2%'},
+    {top:'58%',left:'1%'},{top:'58%',right:'1%'},
+    {top:'70%',left:'3%'},{top:'70%',right:'3%'},
+    {top:'80%',left:'5%'},{top:'80%',right:'5%'},
+    {top:'88%',left:'10%'},{top:'88%',right:'10%'},
+    {top:'93%',left:'20%'},{top:'93%',right:'20%'},
+  ];
+  positions.forEach((pos,i)=>{
+    const el=document.createElement('div'); el.className='sticker';
+    el.textContent=stickerEmojis[i%stickerEmojis.length];
+    const rotFrom=(Math.random()*20-10).toFixed(1)+'deg';
+    const rotTo=(Math.random()*20-10).toFixed(1)+'deg';
+    el.style.cssText=Object.entries(pos).map(([k,v])=>`${k}:${v}`).join(';')
+      +`;--sf-dur:${2.5+Math.random()*2}s;--rot-from:${rotFrom};--rot-to:${rotTo};animation-delay:${(Math.random()*2).toFixed(2)}s;font-size:${24+Math.floor(Math.random()*16)}px`;
+    document.body.appendChild(el);
+  });
+
+  // Countdown — APNI DATE YAHAN DAALO (YYYY-MM-DD)
+  const startDate = new Date('2024-10-04');
+  function updateCountdown() {
+    const diff = new Date() - startDate;
+    document.getElementById('cd-d').textContent = Math.floor(diff/86400000);
+    document.getElementById('cd-h').textContent = Math.floor((diff%86400000)/3600000);
+    document.getElementById('cd-m').textContent = Math.floor((diff%3600000)/60000);
+    document.getElementById('cd-s').textContent = Math.floor((diff%60000)/1000);
+  }
+  updateCountdown(); setInterval(updateCountdown,1000);
+
+  // Surprise
+  function showSurprise() { document.getElementById('overlay').classList.add('active'); burstHearts(); }
+  function closeOverlay() { document.getElementById('overlay').classList.remove('active'); }
+  function burstHearts() {
+    const burst=document.getElementById('burst');
+    for(let i=0;i<28;i++) {
+      setTimeout(()=>{
+        const h=document.createElement('div'); h.className='burst-h';
+        const angle=Math.random()*360; const dist=80+Math.random()*220;
+        h.textContent=['❤','💖','💕','♥','🌸'][Math.floor(Math.random()*5)];
+        h.style.cssText=`left:${40+Math.random()*20}%;top:${40+Math.random()*20}%;--bx:${Math.cos(angle)*dist}px;--by:${Math.sin(angle)*dist}px`;
+        burst.appendChild(h); setTimeout(()=>h.remove(),1600);
+      },i*50);
+    }
+  }
+
+  // Scroll reveal
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; } });
+  },{threshold:0.15});
+  document.querySelectorAll('.section').forEach(sec=>{
+    sec.style.opacity='0'; sec.style.transform='translateY(40px)';
+    sec.style.transition='opacity 0.8s ease,transform 0.8s ease';
+    observer.observe(sec);
+  });
+</script>
+</body>
+</html>
